@@ -39,7 +39,7 @@ public class NaehknechtGUI {
 		  JFrame mainFrame = new JFrame("Nähknecht");
 		  mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		  mainFrame.setLayout(new BorderLayout());
-		  mainFrame.setSize(400, 300);
+		  mainFrame.setSize(1200, 800);
 		  
 		  //Menüleiste
 		  JMenuBar menueleiste = new JMenuBar();
@@ -56,19 +56,24 @@ public class NaehknechtGUI {
 		  werte.setPreferredSize(new Dimension(80, mainFrame.getHeight()));
 		  
 		  //Panel für die optische Darstellung des Schnitts
-		  ZeichenflächeOberteil schnitt = new ZeichenflächeOberteil();
+		  ZeichenflaecheOberteil schnitt = new ZeichenflaecheOberteil();
 		  schnitt.setBackground(Color.white);
-		  schnitt.setPreferredSize(new Dimension(mainFrame.getWidth()-werte.getWidth(), mainFrame.getHeight()));
-		  
+//		  if(schnitt.width() != -1 && schnitt.height() != -1){
+//			  schnitt.setPreferredSize(new Dimension(schnitt.width(), schnitt.height()));
+//		  }
 		  JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		  split.setLeftComponent(werte);
 		  split.setRightComponent(schnitt);
 		  
 		 
 		  //Hinzufügen der erstellten Komponenten
+
+		 
 		  mainFrame.setJMenuBar(menueleiste);
 		  mainFrame.add(split);
 		  mainFrame.setVisible(true);
+		  //System.out.println(schnitt.getPreferredSize().getWidth() + "  " );
+		  //mainFrame.setSize((int) schnitt.getPreferredSize().getWidth()+werte.getWidth(), (int) schnitt.getPreferredSize().getHeight());
 	}
 
 }

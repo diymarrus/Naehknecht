@@ -15,6 +15,8 @@ public class Masse {
 	private double schulterweiteVorn = 38.9;
 	private double hosenlänge = 108;
 	private double hüftweite = 92.5;
+	private double armDurchmesser = 10.8;
+	private double schulterBreite = 14.0;
 	
 	private HashMap<String,Double> werte = new HashMap<String,Double>();
 
@@ -32,6 +34,7 @@ public class Masse {
 		werte.put("BrustpunktTiefe", brustpunktWeite);
 		werte.put("schulterweiteHinten", schulterweiteHinten);
 		werte.put("SchulterweiteVorn", schulterweiteVorn);
+		werte.put("ArmDurchmesser", armDurchmesser);
 		
 		return werte;
 	}
@@ -101,6 +104,16 @@ public class Masse {
 	}
 
 
+	public double getArmDurchmesser() {
+		return armDurchmesser;
+	}
+
+
+	public void setArmDurchmesser(double armDurchmesser) {
+		this.armDurchmesser = armDurchmesser;
+	}
+
+
 	public double getHüftweite() {
 		return hüftweite;
 	}
@@ -108,5 +121,15 @@ public class Masse {
 
 	public void setHüftweite(double hüftweite) {
 		this.hüftweite = hüftweite;
+	}
+
+
+	public double getSchulterBreite() {
+		return schulterBreite;
+	}
+
+
+	public void setSchulterBreite(double schulterBreite) {
+		this.schulterBreite = schulterBreite;
 	}
 }
