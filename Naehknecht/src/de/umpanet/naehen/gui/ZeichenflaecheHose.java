@@ -1,4 +1,4 @@
-package gui;
+package de.umpanet.naehen.gui;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics;
@@ -9,7 +9,7 @@ import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
 
-import werte.Masse;
+import de.umpanet.naehen.werte.Masse;
 
 public class ZeichenflaecheHose extends JPanel {
 	

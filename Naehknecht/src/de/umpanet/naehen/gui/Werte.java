@@ -1,4 +1,4 @@
-package gui;
+package de.umpanet.naehen.gui;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -8,6 +8,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -17,7 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
-import werte.Masse;
+import de.umpanet.naehen.werte.ConstructionMeasuerments;
+import de.umpanet.naehen.werte.Masse;
 
 public class Werte extends JPanel {
 
@@ -39,10 +41,10 @@ public class Werte extends JPanel {
 	
 	JButton		buttonSchnitt;
 	JButton		buttonSpeichern;
-	Masse m;
+	ConstructionMeasuerments m;
 	
 	
-	public void buttons(Masse m) {
+	public void buttons(ConstructionMeasuerments m) {
 		GridLayout gridLayout = new GridLayout(0,2);
 		this.setLayout(gridLayout);
 
@@ -74,12 +76,15 @@ public class Werte extends JPanel {
 
 			private void buttonSchnittClicked() {
 				
-				//TODO werte Übergeben
+				Set<String> keys = felder.keySet();
+				for(int i =0 ; i <= keys.size(); i++){
+					
+				}
 				
 			}
 			
 		});
-		buttonSpeichern = new JButton("Schnitt erstellen");
+		buttonSpeichern = new JButton("Speichern");
 		buttonSpeichern.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -104,7 +109,7 @@ public class Werte extends JPanel {
 //		this.add(brustpunktWeiteFeld);
 //		this.add(schulterweiteVornFeld);
 		
-		HashMap<String, Double> werte = m.alleWerte();
+		HashMap<String, Double> werte = m.getAll();
 		Iterator<String> werteIter = werte.keySet().iterator();
 		while(werteIter.hasNext()){
 			String name = werteIter.next();
@@ -129,6 +134,14 @@ public class Werte extends JPanel {
 		feld.setName(name);
 		feld.setText(String.valueOf(wert));
 		feld.setMinimumSize(dim);
+		feld.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		hilfspanel.add(feld);
 		
 		JLabel namelable = new JLabel(name);

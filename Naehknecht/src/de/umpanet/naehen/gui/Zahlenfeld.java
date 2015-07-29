@@ -1,4 +1,4 @@
-package gui;
+package de.umpanet.naehen.gui;
 
 import java.awt.Color;
 import java.text.Format;
