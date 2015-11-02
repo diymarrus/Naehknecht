@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.Arc2D;
+import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
@@ -56,6 +58,9 @@ public class BodiceSloper extends JPanel{
 	private FancyLine centerFront;
 	private FancyLine bustDartLine;
 	private FancyLine shoulderBack;
+	private Point2D shoulderpoint;
+	private Double sleevePBack;
+	private Point2D bustPoint;
 	
 	public BodiceSloper(ConstructionMeasuerments m, int fitclass) {
 		
@@ -186,10 +191,39 @@ public class BodiceSloper extends JPanel{
 		
 		Point2D hP = new Point2D.Double(this.armlineBack.getX1(), this.shoulderline.getY1() + 1.5 *cm);
 		shoulderBack = new FancyLine(sNlP, hP, this.m.getShoulderWidth() + 1*cm);
-		System.out.println(this.m.getShoulderWidth() / cm + " " );
 		g2.draw(shoulderBack);
 		
+		this.shoulderpoint = this.shoulderBack.getP2();
+		double hy =  hP.getY() - (hP.getY()-this.bustline.getY1()) /2;
+		Point2D pHP = new Point2D.Double(this.armlineBack.getX1() - 1*cm, hy);
+		geo.mark(g2, pHP, Color.green);
+		hy = pHP.getY()-(pHP.getY()-this.bustline.getY1())/2;
+		this.sleevePBack = new Point2D.Double(this.armlineBack.getX1()-1.5 * cm ,hy );
 		
+		//front neckline
+		Point2D fhP = this.bustDartLine.pointAtDistance(new Point2D.Double(this.bustDartLine.getX1(),this.waistline.getY1() ), m.getFrontHeight());
+		this.bustPoint = this.bustDartLine.pointAtDistance(fhP,this.m.getBustDepth());
+		 FancyLine hL = new FancyLine(this.centerFront.getX1(), fhP.getY(), fhP.getX(), fhP.getY());
+		 g2.draw(hL);
+		 Point2D sNlPF = new Point2D.Double(this.centerFront.getX1() + this.m.getNeckHoleDepth(), fhP.getY());
+		 QuadCurve2D.Double necklineFront = new QuadCurve2D.Double(this.centerFront.getX1(), sNlPF.getY() + (this.m.getNeckHoleDepth() + 1.5*cm),sNlPF.getX() ,sNlPF.getY() + (this.m.getNeckHoleDepth() + 1.5*cm), sNlPF.getX(), sNlPF.getY());
+		 g2.draw(necklineFront);
+		
+		 //front shoulder
+		 Point2D fsP = new Point2D.Double(armlineFront.getX1(), this.bustline.getY1() - this.m.getArmDiameter()/4);
+		 geo.mark(g2, fsP);
+		 geo.mark(g2, hP, Color.ORANGE);
+
+		 Point2D fshP = new Point2D.Double(this.armlineFront.getX1(),this.bustline.getY1() - (Math.abs(this.bustline.getY1()- hP.getY()) - 2*cm));
+		 geo.mark(g2, fshP, Color.RED);
+		 
+		 Arc2D.Double farc = new Arc2D.Double();
+		 double r = (Math.abs(this.bustline.getY1()- hP.getY()) - 2*cm);
+		 double deg = 360*(this.m.getBustChestGirth()/20) /(2*r * Math.PI);
+		 farc.setArcByCenter(armlineFront.getX1(), this.bustline.getY1(),  r, 90 , -deg, Arc2D.PIE);
+		 g2.draw(farc);
+		 
+		 
 	}
 	
 private void addAllowence(ConstructionMeasuerments m) {
